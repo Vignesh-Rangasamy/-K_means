@@ -4,41 +4,47 @@ Implementation and Evaluation of K-Means Clustering from Scratch
 
 Objective:
 The objective of this project is to implement the K-Means clustering algorithm
-from scratch using NumPy and evaluate its performance by comparing it with
-the standard K-Means implementation available in the scikit-learn library.
+from scratch using NumPy and to evaluate its performance by comparing it with
+the standard K-Means implementation provided by the scikit-learn library.
+The comparison focuses on clustering quality, convergence behavior, and
+Within-Cluster Sum of Squares (WCSS).
 
 Dataset Description:
 A synthetic two-dimensional dataset was generated using the make_blobs function.
-The dataset consists of 300 data points distributed across three clusters with
-a standard deviation of 1.2. The dataset is suitable for evaluating clustering
-algorithms due to its clear cluster separation.
+The dataset contains 300 data points grouped into three distinct clusters with
+a cluster standard deviation of 1.2. This dataset enables clear visual and
+quantitative evaluation of clustering performance.
+
+Initialization Strategy:
+The custom K-Means implementation uses standard random initialization.
+Initial centroids are selected randomly from the dataset without replacement.
+No advanced initialization strategy such as K-Means++ was implemented in the
+custom algorithm. In contrast, scikit-learn’s KMeans uses K-Means++ by default,
+which generally leads to better initial centroid placement.
 
 Methodology:
-The custom K-Means algorithm follows the standard clustering procedure:
-1. Random initialization of centroids.
-2. Computation of Euclidean distance between data points and centroids.
-3. Assignment of data points to the nearest centroid.
-4. Update of centroids based on cluster means.
-5. Iterative repetition until convergence or maximum iterations.
+The custom K-Means algorithm follows the standard iterative procedure:
+1. Random initialization of centroids from the dataset.
+2. Computation of Euclidean distances between data points and centroids.
+3. Assignment of each data point to the nearest centroid.
+4. Update of centroids as the mean of assigned cluster points.
+5. Iteration until centroid movement falls below a tolerance threshold or
+   the maximum number of iterations is reached.
 
-Special care was taken to handle edge cases such as empty clusters by
-reinitializing centroids when necessary.
+To ensure robustness, the implementation explicitly handles empty clusters
+by reinitializing the affected centroid with a randomly selected data point.
 
 Performance Evaluation:
-The clustering performance was evaluated using the Within-Cluster Sum of Squares
-(WCSS) metric. The custom implementation was compared with scikit-learn’s KMeans
-algorithm using the same dataset and number of clusters.
+Clustering performance was evaluated using the Within-Cluster Sum of Squares
+(WCSS) metric, which measures the compactness of clusters.
 
-Results:
-WCSS (Custom K-Means)   : 816.2777536191549
-WCSS (Scikit-Learn)     : 816.2777536191547
-
-Both implementations produced nearly identical WCSS values, indicating that the
-custom algorithm converged to a solution comparable to the optimized library
-implementation.
+Final WCSS Results:
+WCSS (Custom K-Means Implementation)   : 816.2777536191549
+WCSS (Scikit-Learn KMeans Implementation): 816.2777536191547
 
 Conclusion:
-The project demonstrates that a correctly implemented K-Means algorithm from
-scratch can achieve clustering performance equivalent to standard machine
-learning libraries. The close match in WCSS values validates the correctness,
-stability, and effectiveness of the custom implementation.
+The near-identical WCSS values demonstrate that the custom K-Means
+implementation converged to a solution comparable to the optimized library
+implementation. This validates the correctness of the algorithm and confirms
+that a NumPy-based implementation can achieve production-level clustering
+quality when carefully designed.
