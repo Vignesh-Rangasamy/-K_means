@@ -1,32 +1,24 @@
-Final WCSS Value (Custom K-Means):
-816.2777536191549
-
 Analysis and Interpretation:
 
-The custom K-Means implementation uses standard random initialization for
-centroid selection, whereas scikit-learn’s KMeans employs the K-Means++
-initialization strategy. K-Means++ improves centroid placement by spreading
-initial centroids farther apart, which often leads to faster convergence and
-slightly lower WCSS values.
+Final WCSS Value (Custom K-Means):816.2777536191549
 
-Despite this difference in initialization, both algorithms converged to
-almost identical final WCSS values. The extremely small difference between
-the two results is primarily due to floating-point arithmetic and minor
-differences in centroid initialization paths rather than differences in
-cluster quality.
+The custom K-Means implementation uses basic random initialization for selecting
+initial centroids. In contrast, the scikit-learn implementation uses the
+K-Means++ initialization strategy, which is designed to improve initial centroid
+placement and often leads to faster convergence and slightly improved WCSS
+values.
 
-In terms of convergence behavior, the scikit-learn implementation typically
-reaches convergence in fewer iterations due to its optimized initialization
-and internal numerical optimizations written in C. The custom implementation,
-while potentially requiring slightly more iterations, still converges
-reliably and produces stable centroids.
+In this experiment, both algorithms converged to almost identical final WCSS
+values. The small difference between the two values is due to the different
+initialization strategies and minor numerical differences during optimization.
+The clustering quality produced by both methods is effectively the same.
 
-Visual inspection of the clustering results confirms that both approaches
-identify well-separated and compact clusters, with centroids positioned near
-the center of each cluster. The handling of empty clusters in the custom
-implementation further improves robustness and prevents numerical instability.
+Visual inspection of the clustering results shows that both approaches formed
+well-separated and compact clusters. The centroids produced by each method are
+located near the center of their respective clusters, indicating successful
+convergence.
 
-Overall, this analysis demonstrates that although library implementations may
-offer faster convergence and optimized initialization, a correctly implemented
-K-Means algorithm from scratch can achieve equivalent clustering performance
-and produce comparable final results.
+Although the scikit-learn implementation benefits from optimized initialization
+and internal performance optimizations, the custom implementation demonstrates
+that a NumPy based K-Means algorithm can achieve comparable results when
+implemented correctly.
